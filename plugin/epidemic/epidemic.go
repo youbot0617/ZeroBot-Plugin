@@ -7,10 +7,10 @@ import (
 	zero "github.com/wdvxdr1123/ZeroBot"
 	"github.com/wdvxdr1123/ZeroBot/message"
 
+	"github.com/FloatTech/floatbox/web"
 	ctrl "github.com/FloatTech/zbpctrl"
 	"github.com/FloatTech/zbputils/control"
 	"github.com/FloatTech/zbputils/ctxext"
-	"github.com/FloatTech/zbputils/web"
 )
 
 const (
@@ -35,8 +35,8 @@ type epidemic struct {
 type area struct {
 	Name  string `json:"name"`
 	Today struct {
-		Confirm int         `json:"confirm"`
-		Wzzadd  interface{} `json:"wzz_add"`
+		Confirm int `json:"confirm"`
+		Wzzadd  any `json:"wzz_add"`
 	} `json:"today"`
 	Total struct {
 		NowConfirm int    `json:"nowConfirm"`
@@ -64,7 +64,7 @@ func init() {
 			}
 			data, time, err := queryEpidemic(city)
 			if err != nil {
-				ctx.SendChain(message.Text("ERROR:", err))
+				ctx.SendChain(message.Text("ERROR: ", err))
 				return
 			}
 			if data == nil {

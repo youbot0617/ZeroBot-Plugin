@@ -3,15 +3,11 @@ package bilibili
 import (
 	"os"
 
-	"github.com/FloatTech/zbputils/binary"
-	"github.com/FloatTech/zbputils/web"
+	"github.com/FloatTech/floatbox/binary"
+	"github.com/FloatTech/floatbox/web"
 	_ "github.com/fumiama/sqlite3" // use sql
 	"github.com/jinzhu/gorm"
 	"github.com/tidwall/gjson"
-)
-
-const (
-	bilibiliCookie = "bilbili_cookie"
 )
 
 var (
@@ -32,17 +28,8 @@ func (vup) TableName() string {
 	return "vup"
 }
 
-type config struct {
-	Key   string `gorm:"column:key;primary_key"`
-	Value string `gorm:"column:value"`
-}
-
-func (config) TableName() string {
-	return "config"
-}
-
-// initialize 初始化vtb数据库
-func initialize(dbpath string) (*vupdb, error) {
+// initializeVup 初始化vup数据库
+func initializeVup(dbpath string) (*vupdb, error) {
 	if _, err := os.Stat(dbpath); err != nil || os.IsNotExist(err) {
 		// 生成文件
 		f, err := os.Create(dbpath)
@@ -55,7 +42,7 @@ func initialize(dbpath string) (*vupdb, error) {
 	if err != nil {
 		return nil, err
 	}
-	gdb.AutoMigrate(&vup{}).AutoMigrate(&config{})
+	gdb.AutoMigrate(&vup{})
 	return (*vupdb)(gdb), nil
 }
 
@@ -101,30 +88,4 @@ func updateVup() error {
 		}
 	}
 	return nil
-}
-
-func (vdb *vupdb) setBilibiliCookie(cookie string) (err error) {
-	db := (*gorm.DB)(vdb)
-	c := config{
-		Key:   bilibiliCookie,
-		Value: cookie,
-	}
-	if err = db.Model(&config{}).First(&c, "key = ? ", bilibiliCookie).Error; err != nil {
-		// error handling...
-		if gorm.IsRecordNotFoundError(err) {
-			err = db.Model(&config{}).Create(&c).Error
-		}
-	} else {
-		err = db.Model(&config{}).Where("key = ? ", bilibiliCookie).Update(
-			map[string]interface{}{
-				"value": cookie,
-			}).Error
-	}
-	return
-}
-
-func (vdb *vupdb) getBilibiliCookie() (c config) {
-	db := (*gorm.DB)(vdb)
-	db.Model(&config{}).First(&c, "key = ?", bilibiliCookie)
-	return
 }

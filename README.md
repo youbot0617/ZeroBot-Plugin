@@ -80,6 +80,14 @@ zerobot [-c config.json] [-h] [-s config.json] [-t token] [-u url] [-n nickname]
 <details>
   <summary>插件控制</summary>
 
+  - [x] /响应 (在发送的群/用户开始工作)
+
+  - [x] /沉默 (在发送的群/用户停止工作)
+
+  - [x] /全局响应 (在所有位置开始工作，无视单独的沉默)
+
+  - [x] /全局沉默 (在所有本应沉默的位置停止工作，显式指定启用的位置不受影响)
+
   - [x] /启用 xxx (在发送的群/用户启用xxx)
 
   - [x] /禁用 xxx (在发送的群/用户禁用xxx)
@@ -114,7 +122,7 @@ zerobot [-c config.json] [-h] [-s config.json] [-t token] [-u url] [-n nickname]
 <details>
   <summary>动态加载插件</summary>
 
-  `import _ github.com/FloatTech/ZeroBot-Plugin-Dynamic/dyloader`
+  `import _ "github.com/FloatTech/ZeroBot-Plugin-Dynamic/dyloader"`
 
   - 本功能需要`cgo`，故已分离出主线。详见[ZeroBot-Plugin-Dynamic](https://github.com/FloatTech/ZeroBot-Plugin-Dynamic)
 
@@ -142,7 +150,7 @@ zerobot [-c config.json] [-h] [-s config.json] [-t token] [-u url] [-n nickname]
 <details>
   <summary>睡眠管理</summary>
 
-  `import _ github.com/FloatTech/ZeroBot-Plugin/plugin/sleep_manage`
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/sleep_manage"`
 
   - [x] 早安 | 晚安
 
@@ -242,7 +250,7 @@ zerobot [-c config.json] [-h] [-s config.json] [-t token] [-u url] [-n nickname]
 
   - [x] 取消以"完全匹配关键词"触发的(代表我执行的)指令
 
-  - [x] 记录在"cron"触发的指令
+  - [x] 记录在"cron"触发的(别名xxx的)指令
 
   - [x] 取消在"cron"触发的指令
 
@@ -321,7 +329,14 @@ print("run[CQ:image,file="+j["img"]+"]")
 </details>
 
 ### *中优先级*
+<details>
+  <summary>ahsai tts</summary>
 
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/ahsai"`
+
+  - [x] 使[ 伊織弓鶴 | 紲星あかり | 結月ゆかり | 京町セイカ |東北きりたん | 東北イタコ | ついなちゃん標準語 | ついなちゃん関西弁 | 音街ウナ | 琴葉茜 | 吉田くん | 民安ともえ | 桜乃そら | 月読アイ | 琴葉葵 | 東北ずん子 | 月読ショウタ | 水奈瀬コウ ]说(日语)
+
+</details>
 <details>
   <summary>AIfalse</summary>
 
@@ -333,11 +348,37 @@ print("run[CQ:image,file="+j["img"]+"]")
 
 </details>
 <details>
+  <summary>ai绘图</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/aipaint"`
+
+  - [x] [ ai绘图 | 生成色图 | 生成涩图 | ai画图 ] xxx
+
+  - [x] [ 以图绘图 | 以图生图 | 以图画图 ] xxx [图片]|@xxx|[qq号]
+  
+  - [x] 设置ai绘图配置 [server] [token]
+  
+  例: 设置ai绘图配置 http://91.216.169.75:5010 abc
+
+  参考服务器 http://91.217.139.190:5010, http://91.216.169.75:5010, http://185.80.202.180:5010
+
+  通过 http://91.217.139.190:5010/token 获取token
+
+</details>
+<details>
   <summary>AIWife</summary>
 
   `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/aiwife"`
 
   - [x] waifu | 随机waifu(从[100000个AI生成的waifu](https://www.thiswaifudoesnotexist.net/)中随机一位)
+
+</details>
+<details>
+  <summary>支付宝到账语音</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/alipayvoice"`
+
+  - [x] 支付宝到账 1
 
 </details>
 <details>
@@ -363,6 +404,34 @@ print("run[CQ:image,file="+j["img"]+"]")
 
 </details>
 <details>
+  <summary>base64卦加解密</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/base64gua"`
+
+  - [x] 六十四卦加密xxx
+
+  - [x] 六十四卦解密xxx
+
+  - [x] 六十四卦用yyy加密xxx
+
+  - [x] 六十四卦用yyy解密xxx
+
+</details>
+<details>
+  <summary>base天城文加解密</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/baseamasiro"`
+
+  - [x] 天城文加密xxx
+
+  - [x] 天城文解密xxx
+
+  - [x] 天城文用yyy加密xxx
+
+  - [x] 天城文用yyy解密xxx
+
+</details>
+<details>
   <summary>bilibili</summary>
 
   `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/bilibili"`
@@ -373,17 +442,39 @@ print("run[CQ:image,file="+j["img"]+"]")
 
   - [x] 查成分 [xxx]
 
-  - [x] 设置b站cookie SESSDATA=82da790d,1663822823,06ecf\*31
+  - [x] 查弹幕 [xxx] 2 (最后一个参数是页码)
 
+  - [x] 设置b站cookie b_ut=7;buvid3=0;i-wanna-go-back=-1;innersign=0; (最好把cookie设全)
+
+    获取Cookie可以使用[这个工具](https://github.com/XiaoMiku01/login_bili_go)
+    
   - [x] 更新vup
 
 </details>
 <details>
-  <summary>b站视频链接解析</summary>
+  <summary>b站动态、专栏、视频、直播解析</summary>
 
-  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/bilibili_parse"`
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/bilibili"`
 
-  - [x] https://www.bilibili.com/video/BV1xx411c7BF | https://www.bilibili.com/video/av1605 | https://b23.tv/I8uzWCA | https://www.bilibili.com/video/bv1xx411c7BF
+  - [x] t.bilibili.com/642277677329285174 | bilibili.com/read/cv17134450 | bilibili.com/video/BV13B4y1x7pS | live.bilibili.com/22603245
+
+</details>
+<details>
+  <summary>b站动态、直播推送,需要配合job一起使用</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/bilibili"`
+
+  - [x] 添加b站订阅[uid|name]
+
+  - [x] 取消b站订阅[uid|name]
+  
+  - [x] 取消b站动态订阅[uid|name]
+  
+  - [x] 取消b站直播订阅[uid|name]
+  
+  - [x] b站推送列表
+  
+  - [x] 拉取b站推送 (使用job执行定时任务------记录在"@every 10s"触发的指令) 
 
 </details>
 <details>
@@ -394,6 +485,14 @@ print("run[CQ:image,file="+j["img"]+"]")
   - [x] 书评[xxx]
 
   - [x] 随机书评
+
+</details>
+<details>
+  <summary>打断复读</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/breakrepeat"`
+
+  - [x] (打断三次以上的复读)
 
 </details>
 <details>
@@ -423,6 +522,14 @@ print("run[CQ:image,file="+j["img"]+"]")
 
 </details>
 <details>
+  <summary>英文字符翻转</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/chrev"`
+
+  - [x] 翻转 I love you
+
+</details>
+<details>
   <summary>coser</summary>
 
   `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/coser" `
@@ -443,7 +550,7 @@ print("run[CQ:image,file="+j["img"]+"]")
 <details>
   <summary>DeepDanbooru二次元图标签识别</summary>
 
-  `import _ github.com/FloatTech/ZeroBot-Plugin/plugin/danbooru`
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/danbooru"`
 
   - [x] 鉴赏图片[图片]
 
@@ -458,8 +565,6 @@ print("run[CQ:image,file="+j["img"]+"]")
   - [x] 发大病
 
   - [x] 教你一篇小作文[作文]
-
-  - [x] [回复]查重
 
 </details>
 <details>
@@ -483,13 +588,25 @@ print("run[CQ:image,file="+j["img"]+"]")
 
   `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/qqwife"`
 
+  - 引入好感度系统，好感度越高，自由恋爱成功率越高
+  
+  - [x] 设置CD为xx小时
+
+  - [x] 允许/禁止自由恋爱
+
+  - [x] 允许/禁止牛头人
+
   - [x] 娶群友
 
   - [x] (娶|嫁)[@对方QQ]
   
   - [x] 当[对方Q号|@对方QQ]的小三
 
+  - [x] 做媒 @攻方QQ @受方QQ
+
   - [x] 群老婆列表
+
+  - [x] 重置花名册
 
 </details>
 <details>
@@ -509,6 +626,18 @@ print("run[CQ:image,file="+j["img"]+"]")
 
 </details>
 <details>
+  <summary>好友申请及群聊邀请事件处理</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/event"`
+
+  - [x] [开启|关闭]自动同意[申请|邀请|主人]
+
+  - [x] [同意|拒绝][申请|邀请][flag]
+
+  - flag跟随事件一起发送, 默认同意主人的事件
+
+</details>
+<details>
   <summary>渲染任意文字到图片</summary>
 
   `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/font"`
@@ -518,7 +647,7 @@ print("run[CQ:image,file="+j["img"]+"]")
 <details>
   <summary>每日运势</summary>
 
-  `import _ github.com/FloatTech/ZeroBot-Plugin/plugin/fortune`
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/fortune"`
 
   - [x] 运势 | 抽签
 
@@ -536,7 +665,7 @@ print("run[CQ:image,file="+j["img"]+"]")
 <details>
   <summary>原神抽卡</summary>
 
-  `import _ github.com/FloatTech/ZeroBot-Plugin/plugin/genshin`
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/genshin"`
 
   - [x] 切换原神卡池
 
@@ -565,6 +694,52 @@ print("run[CQ:image,file="+j["img"]+"]")
   - [x] >github [xxx]
 
   - [x] >github -p [xxx]
+
+</details>
+<details>
+  <summary>猜歌</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/guessmusic"`
+
+  - 猜歌插件（该插件依赖ffmpeg）
+  
+  - 因为API不可抗因素，更改为了本地猜歌，但仍支持歌曲下载（VIP歌曲无法下载，黑胶可以）
+  
+  - [x] 设置猜歌歌库路径 [绝对路径]
+  
+  - [x] 猜歌[开启/关闭][歌单/歌词]自动下载
+  
+  - 现只有歌词指令有效
+  
+  - [ ] 添加歌单 [网易云歌单链接/ID] [歌单名称]
+  
+  - [x] 下载歌曲 [歌曲名称/网易云歌曲ID] [歌单名称]
+  
+  - [x] 删除歌单 [网易云歌单ID/歌单名称]
+  
+  - 注：删除网易云歌单ID仅只是解除绑定，删除歌单名称是将本地数据全部删除！
+  
+  - [x] 设置猜歌默认歌单 [歌单名称]
+  
+  - [x] 歌单列表
+  
+  - [x] [个人/团队]猜歌
+  
+  - 注：默认歌库为歌单列表第一个，如果设置了默认歌单变为指定的歌单
+  
+  - 可在“[个人/团队]猜歌指令”后面添加[-歌单名称]进行指定歌单猜歌
+  
+  - 猜歌内容必须以[-]开头才会识别
+  
+  - 本地歌曲命名规则为:\n歌名 - 歌手 - 其他(歌曲出处之类)
+
+</details>
+<details>
+  <summary>黑丝</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/heisi"`
+
+  - [x] 来点黑丝/白丝/jk/巨乳/足控/网红
 
 </details>
 <details>
@@ -616,6 +791,28 @@ print("run[CQ:image,file="+j["img"]+"]")
 
 </details>
 <details>
+  <summary>小鸡词典</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/jikipedia"`
+
+  - [x] [查梗|小鸡词典][梗]
+
+</details>
+<details>
+  <summary>日语听力学习材料</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/jptingroom"`
+
+  - [x] 随机日语听力
+  
+  - [x] 随机日语歌曲
+  
+  - [x] 日语听力 xxx
+  
+  - [x] 日语歌曲 xxx
+
+</details>
+<details>
   <summary>绝绝子</summary>
 
   `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/juejuezi"`
@@ -628,7 +825,9 @@ print("run[CQ:image,file="+j["img"]+"]")
 
   `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/lolicon"`
 
-  - [x] 来份萝莉
+  - [x] 随机图片
+
+  - [x] 随机图片 萝莉|少女
 
   - [x] 设置随机图片地址[http...]
 
@@ -656,9 +855,19 @@ print("run[CQ:image,file="+j["img"]+"]")
   
   - [x] 设置音色40 (0~127)
 
-  - [x] 注: 该插件需要安装timidity,linux安装脚本可参考 https://gitcode.net/anto_july/midi/-/raw/master/timidity.sh , windows安装脚本可参考 https://gitcode.net/anto_july/midi/-/raw/master/timidity.bat , windows需要管理员模式运行
+  - [x] 注: 该插件需要安装timidity, linux安装脚本可参考 https://gitcode.net/anto_july/midi/-/raw/master/timidity.sh, windows安装脚本可参考 https://gitcode.net/anto_july/midi/-/raw/master/timidity.bat?inline=false, windows需要管理员模式运行
   
   - [x] 符号说明: C5是中央C,后面不写数字,默认接5,Cb6<1,b代表降调,#代表升调,6比5高八度,<1代表音长×2,<3代表音长×8,<-1代表音长×0.5,<-3代表音长×0.125,R是休止符
+
+</details>
+<details>
+  <summary>日韩 VITS 模型拟声</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/moegoe"`
+
+  - [x] 让[宁宁|爱瑠|芳乃|茉子|丛雨|小春|七海]说(日语)
+
+  - [x] 让[수아|미미르|아린|연화|유화|선배]说(韩语)
 
 </details>
 <details>
@@ -748,6 +957,16 @@ print("run[CQ:image,file="+j["img"]+"]")
 
 </details>
 <details>
+  <summary>日语语法学习</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/nihongo"`
+
+  - [x] 日语语法 [xxx] (使用tag随机)
+  
+  - [x] 搜索日语语法 [xxx]
+
+</details>
+<details>
   <summary>小说</summary>
 
   `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/novel" `
@@ -768,7 +987,7 @@ print("run[CQ:image,file="+j["img"]+"]")
 <details>
   <summary>浅草寺求签</summary>
 
-  `import _ github.com/FloatTech/ZeroBot-Plugin/plugin/omikuji`
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/omikuji"`
 
   - [x] 求签 | 占卜
 
@@ -790,11 +1009,11 @@ print("run[CQ:image,file="+j["img"]+"]")
 
   `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/runcode"`
 
-  - [x] > runcode [language] help
+  - [x] >runcode [language] help
 
-  - [x] > runcode [language] [code block]
+  - [x] >runcode [language] [code block]
 
-  - [x] > runcoderaw [language] [code block]
+  - [x] >runcoderaw [language] [code block]
 
 </details>
 <details>
@@ -805,6 +1024,8 @@ print("run[CQ:image,file="+j["img"]+"]")
   - [x] 以图搜图 | 搜索图片 | 以图识图[图片]
 
   - [x] 搜图[P站图片ID]
+
+  - [x] 设置 saucenao api key [apikey]
 
 </details>
 <details>
@@ -859,9 +1080,10 @@ print("run[CQ:image,file="+j["img"]+"]")
 
   `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/tarot"`
 
-  - [x] 抽塔罗牌
-  - [x] 抽n张塔罗牌
+  - [x] 抽[塔罗牌|大阿卡纳|小阿卡纳]
+  - [x] 抽n张[塔罗牌|大阿卡纳|小阿卡纳]
   - [x] 解塔罗牌[牌名]
+  - [x] [塔罗|大阿卡纳|小阿卡纳|混合]牌阵[圣三角|时间之流|四要素|五牌阵|吉普赛十字|马蹄|六芒星]
 
 </details>
 <details>
@@ -880,6 +1102,10 @@ print("run[CQ:image,file="+j["img"]+"]")
   - [x] 个人猜单词
 
   - [x] 团队猜单词
+
+  - [x] 团队六阶猜单词
+
+  - [x] 团队七阶猜单词
 
 </details>
 <details>
@@ -911,6 +1137,26 @@ print("run[CQ:image,file="+j["img"]+"]")
 
 </details>
 <details>
+  <summary>百度文心AI画图</summary>
+
+  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/wenxinAI"`
+
+  - 基于百度文心的免费AI画图插件(因为是免费的,图片质量你懂的)
+
+  - key申请链接：https://wenxin.baidu.com/moduleApi/key
+
+  - [x] 为[自己/本群/QQ号/群+群号]设置AI画图key [API Key] [Secret Key]
+
+  - 例：“为10086设置AI画图key 123 456”；“为群10010设置AI画图key 789 101”
+
+  - [x] [bot名称]画几张[图片描述]的[图片类型][图片尺寸]
+
+  - 指令示例：
+
+  - 椛椛帮我画几张金凤凰，背景绚烂，高饱和，古风，仙境，高清，4K，古风的油画方图
+
+</details>
+<details>
   <summary>月幕galgame图</summary>
 
   `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/ymgal"`
@@ -924,23 +1170,6 @@ print("run[CQ:image,file="+j["img"]+"]")
   - [x] gal表情包[xxx]
 
   - [x] 更新gal
-
-</details>
-<details>
-  <summary>早报</summary>
-
-  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/zaobao"`
-
-  - api早上8点更新，推荐定时在8点30后。配合插件`job`中的记录在"cron"触发的指令使用
-
-  - [x] /启用 zaobao
-
-  - [x] /禁用 zaobao
-
-```
-记录在"00 9 * * *"触发的指令
-今日早报
-```
 
 </details>
 <details>
@@ -969,24 +1198,6 @@ print("run[CQ:image,file="+j["img"]+"]")
   - [x] 查询鬼东西[序号][@xxx]
 
   - 注：由于需要科学，默认注释。
-
-</details>
-<details>
-  <summary>b站推送</summary>
-
-  `import _ "github.com/FloatTech/ZeroBot-Plugin/plugin/bilibili_push"`
-
-  - [x] 添加b站订阅[uid]
-
-  - [x] 取消b站订阅[uid]
-
-  - [x] 取消b站动态订阅[uid]
-
-  - [x] 取消b站直播订阅[uid]
-
-  - [x] b站推送列表
-
-  - 注：由于需要安装Chrome，默认注释，具体看[这里](https://www.yuque.com/xiangrikuidezhongzi/zerobot/qrwxth)
 
 </details>
 
